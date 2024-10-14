@@ -1,0 +1,287 @@
+package Definitions.
+
+
+Units{
+	V : "volts"
+	A : "ampere"
+	rpm : "rpms"
+	celsius : "celsius"
+	ft : "feet"
+	NM : "nautical mile"
+	kts : "knots"
+	lbs : "pounds"
+	kwh : "kilo-watt hours"
+	degree : "degree"  
+	kgs  : "kilograms"
+	Wh_per_kg : "Watt-hour per kilogram"
+	kW : "kilo-watt"
+	C : "C-rate"
+	kW_per_kg : "kilo-watt per kilogram"
+	GPM : "Gallons per minute"
+	C_per_kW : "Celsius per kilo-Watt"
+
+}
+Switch is an enum type with values [ON, OFF].
+//ThrottleEnum is an enum type with values [Throttle_Lever_Angle, Autothrust].
+ControlEnum is an enum type with values [Cockpit_Controls, Automated_Control].
+PWMState is an enum type with values [Enable, Disable]. 
+ClutchState is an enum type with values [Clutch, Declutch].
+max_fuel_flow : real with value 5000. 
+Valve is an enum type with values [OPEN, CLOSED].
+
+StructuresEnum is an enum type with values [Deploy].
+
+Mode is an enum type with values [Climb, Cruise, Taxi, Takeoff, Emergency, After_Landing_Roll, Descent, Final_Roll, Final_Approach, GroundIdle].
+max_dc_voltage : real with value 100 V.
+min_dc_voltage : real with value 900 V.
+max_bat_current : real with value 10000 A . 
+min_bat_current : real with value 10000 A.   
+max_bat_voltage : real with value 6000 V. 
+min_bat_voltage : real with value 300 V.
+max_temp_bat : real with value 160 celsius. 
+max_temp_mod : real with value 175 celsius. 
+max_speed : real with value 5100 rpm. 
+max_ac_current : real with value 20 A.
+minimum_payload : real with value 1000 lbs.
+average_passenger_payload : real with value 100 lbs.  
+max_passengers: real with value 30.
+Inlet_T_max : real with value 100 celsius.
+Outlet_T_max : real with value 161 celsius. 
+Flow_rate_min : real with value 100. 
+EGT_permissible : real with value 100 celsius. 
+Start_EGT_limit : real with value 100 celsius.
+throttle_lever_angle : real with value 100 degree.
+autothrust : real with value 100 degree.
+flow_rate_min : real with value 100 GPM. 
+flow_rate_max : real with value 1000 GPM. 
+
+
+runway_length : real with value 600 ft.
+useable_range : real with value 1200 NM. 
+cruise_speed : real with value 300 kts.
+
+// Need to determine the proper values
+thrust_at_takeoff : real with value 0.
+thrust_at_climb_power : real with value 0.
+thrust_at_cruise_power : real with value 0.
+thrust_emergency_power : real with value 0.
+max_empty_weight : real with value 1000000 lbs.
+
+ 
+Electronics, Thermal are domain types.
+
+Aircraft is a component type with variables{
+	aircraft_mode_of_operation : Mode
+	aircraft_power_electric_drive_train : real
+	aircraft_power_gas_turbine_train : real
+	aircraft_cruise_speed : real with unit kts
+	aircraft_payload : real with unit lbs
+	aircraft_service_ceiling : real with unit ft
+	aircraft_flight_crew_count : int
+	aircraft_autopilot : Switch
+	aircraft_EGT_light_exceedance : Switch
+	aircraft_range : real with unit NM
+	 
+} 
+
+Structure is a component type with variables{
+	empty_weight : real with unit lbs
+}
+
+
+ParallelHybridPropulsion is a component type with variables{
+	heps_thrust : real with unit lbs
+	heps_turbine_drive_train : Switch
+	heps_electric_drive_train : Switch
+	
+}
+
+FuelSystem is a component type with variables{
+	fuel_system_fuel_flow_reference : real
+	fuel_system_starter_motor : ClutchState
+	fuel_system_ignitor : Switch
+	fuel_system_start_valve : Valve
+	fuel_system_fuel_switch : Switch
+}
+
+Motor is a component type with variables{
+	 motor_speed : int with unit rpm // rpms 
+	 motor_output_power : real with unit kwh 
+	 motor_input_power : real with unit kwh
+	 motor_weight : real with unit kgs
+	 
+	 
+	 
+}
+
+Controller is a component type with variables{
+
+}
+
+DCDCController is an instance of Controller with owned variables{
+	dcdc_controller_pwm : PWMState
+	dcdc_controller_fault : real 
+	dcdc_controller_temp : real with unit celsius 
+	dcdc_controller_warning_temp : real with unit celsius
+	dcdc_controller_voltage : real with unit V
+	
+}
+
+DCACController is an instance of Controller with owned variables{
+	dcac_controller_dc_voltage : real with unit V
+	dcac_controller_ac_current_A : real  with unit A
+	dcac_controller_ac_current_B : real with unit A
+	dcac_controller_ac_current_C : real with unit A
+	
+	dcac_controller_pwm : PWMState
+	dcac_controller_fault : real 
+	dcac_controller_temp : real with unit celsius
+	dcac_controller_warning_temp : real with unit celsius
+	dcac_controller_voltage : real with unit V
+} 	
+   
+
+
+Battery is a component type with variables{
+	
+	battery_temp : real with unit celsius
+	battery_usable_storage_power : real with unit kW
+	battery_specific_energy : real with unit Wh_per_kg
+	battery_energy_rating : real with unit kwh
+	battery_discharge_rate : real with unit C
+	battery_charging_rate : real with unit C
+	battery_energy_density : real with unit Wh_per_kg
+	battery_weight : real with unit kgs
+	battery_duration : real
+	battery_generated_power : real with unit kW 
+	
+	battery_output_power : real with unit kW
+	battery_voltage : real with unit V 
+	battery_current : real with unit A as a property
+	
+	
+} 
+
+Aircraft_Control is a component type with variables {
+	aircraft_control_input_control : ControlEnum
+	aircraft_control_reference_of_throttle : real
+	aircraft_control_turbine_drive_train : Switch
+	aircraft_control_fuel_flow_reference : real
+	aircraft_control_electric_drive_train : Switch
+	aircraft_control_mode_of_operation : Mode
+	aircraft_control_Fault_DCAC_DCACcontroller : real
+	aircraft_control_Fault_DCDC_DCDCcontroller : real
+}
+ 
+   
+PropulsionController is a component type with variables{
+	propulsion_controller_chiller_fault : real
+	propulsion_controller_chiller_warning : real
+	propulsion_controller_temp_warning_electric : real
+	propulsion_controller_temp_warning_turbine : real
+	propulsion_controller_system : real
+	propulsion_controller_ignitor_status : Switch
+	propulsion_controller_starter_motor_status : ClutchState
+	propulsion_controller_start_valve_status : Valve
+	propulsion_controller_fuel_switch_status : Switch
+	propulsion_controller_fuel_flow_reference : real
+	
+}
+
+Chiller is a component type with variables{
+	chiller_inlet_temperature : real with unit celsius
+	chiller_outlet_temperature : real with unit celsius
+	chiller_flow_rate : real with unit GPM 
+	
+}
+
+Auto_control is a component type with variables{
+ 	
+ 	
+ }
+  
+   
+Control is a component type with variables {
+    control_temp_warning_light_EL : Switch
+	control_temp_warning_light_TU : Switch
+	control_chiller_fault_light : Switch
+	control_chiller_warning_light : Switch
+	control_input: ControlEnum
+	control_fuel_flow_reference : real 
+}
+	
+
+Pilot is a component type with variables{
+		
+}
+
+Aerodynamics is a component type with variables{
+		aerodynamics_flaps : PWMState
+		aerodynamics_CLMaxTO : real
+		
+}
+
+GasTurbine is a component type with variables{
+	gas_turbine_speed : real with unit kts
+	gas_turbine_EGT : real with unit celsius
+	gas_turbine_N2_rotation : real // engine specific
+}
+
+Throttle is a component type with variables{
+	throttle_reference : real with unit degree
+}
+
+Structures is a component type with variables{
+	structures_landing_gear : StructuresEnum
+}
+
+Payload is a component type with variables{
+	usable_payload : real with unit kgs 
+}
+
+PowerConverter is a component type with variables{
+    
+}
+
+PowerInverter is a component type with variables{
+	power_inverter_energy_density : real with unit Wh_per_kg as a property
+	
+}
+
+DCDCConverter is a component type with variables{
+
+	dcdc_converter_loss : real as a property
+	dcdc_converter_junction_temperature : real with unit celsius as a property
+	
+	dcdc_converter_weight : real with unit kgs	
+    dcdc_converter_low_voltage_rating : real with unit V as a property 
+	dcdc_converter_high_voltage_rating : real with unit V as a property 
+	dcdc_converter_output_power : real with unit kW as a property 
+	dcdc_converter_efficiency : real as a property
+	dcdc_converter_power_density  : real with unit kW_per_kg as a property
+	dcdc_converter_thermal_resistance_junction_to_fluid : real with unit C_per_kW as a property
+	dcdc_converter_input_power : real with unit kW as a property
+	
+	dcdc_converter_dcdc_output_power : real with unit kW as a property
+	dcdc_converter_dcdc_input_power : real with unit kW as a property
+	
+}
+
+DCACConverter is a component type with variables{
+    dcac_converter_loss : real as a property
+	dcac_converter_junction_temperature : real with unit celsius as a property
+	
+	dcac_converter_weight : real with unit kgs	
+    dcac_converter_low_voltage_rating : real with unit V as a property 
+	dcac_converter_high_voltage_rating : real with unit V as a property 
+	dcac_converter_output_power : real with unit kW as a property 
+	dcac_converter_efficiency : real as a property
+	dcac_converter_power_density  : real with unit kW_per_kg as a property
+	dcac_converter_thermal_resistance_junction_to_fluid :  real with unit C_per_kW as a property
+	dcac_converter_input_power : real with unit kW as a property
+	
+	dcac_output_power : real with unit kW as a property
+	dcac_input_power : real with unit kW as a property
+	 
+	
+}

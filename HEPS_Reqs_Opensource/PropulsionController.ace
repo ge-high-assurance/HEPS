@@ -1,0 +1,63 @@
+package PropulsionControlReqs.
+import Definitions.
+
+
+Requirement PropulsionController_84:
+   PropulsionController shall set propulsion_controller_chiller_fault to 1.0 
+     when Chiller:chiller_inlet_temperature > Inlet_T_max or Chiller:chiller_flow_rate < Flow_rate_min.
+     
+/*Requirement PropulsionController_85:
+   PropulsionController shall set propulsion_controller_chiller_warning to 1.0 
+   when   Chiller:chiller_inlet_temperature > (Inlet_T_max - 5)
+       or Chiller:chiller_flow_rate < (Flow_rate_min + 0.5) 
+       or  Chiller:chiller_outlet_temperature > (Outlet_T_max- 5) . 
+*/
+
+ Requirement PropulsionController_86:
+    PropulsionController shall set  propulsion_controller_temp_warning_electric to 1.0
+    when DCACController:dcac_controller_warning_temp = 1.0 or DCDCController:dcdc_controller_warning_temp = 1.0 .
+ 
+ Requirement PropulsionController_87:
+    PropulsionController shall set ParallelHybridPropulsion:heps_turbine_drive_train to ON when
+    propulsion_controller_system = 1.0 or propulsion_controller_system = 2.0.
+ 
+ Requirement PropulsionController_88:
+   PropulsionController shall set FuelSystem:fuel_system_fuel_flow_reference to (propulsion_controller_fuel_flow_reference) when 1 = 1. 
+    
+ Requirement PropulsionController_89:
+    PropulsionController shall set ParallelHybridPropulsion:heps_electric_drive_train to ON
+    when propulsion_controller_system = 1.0.
+
+ Requirement PropulsionController_90:
+     PropulsionController shall set FuelSystem:fuel_system_starter_motor to Declutch 
+     when propulsion_controller_starter_motor_status = Declutch. 
+ 
+ Requirement PropulsionController_91:
+     PropulsionController shall set FuelSystem:fuel_system_ignitor to OFF 
+     when propulsion_controller_ignitor_status = OFF. 
+     
+Requirement PropulsionController_92: 
+     PropulsionController shall set FuelSystem:fuel_system_start_valve to OPEN 
+     when propulsion_controller_start_valve_status = OPEN.
+ 
+Requirement PropulsionController_93:
+     PropulsionController shall set FuelSystem:fuel_system_fuel_switch to ON 
+     when propulsion_controller_fuel_switch_status = ON. 
+
+Requirement PropulsionController_94: 
+     PropulsionController shall set FuelSystem:fuel_system_ignitor to ON 
+     when propulsion_controller_ignitor_status = ON.
+ 
+Requirement PropulsionController_95:
+     PropulsionController shall set FuelSystem:fuel_system_fuel_switch to OFF 
+     when propulsion_controller_fuel_switch_status = OFF.
+     	
+Requirement PropulsionController_96:
+    PropulsionController shall set FuelSystem:fuel_system_ignitor to ON 
+    when propulsion_controller_ignitor_status = ON.  
+  
+Requirement PropulsionController_C7:
+    PropulsionController shall set ParallelHybridPropulsion:heps_electric_drive_train to OFF
+    when DCDCController:dcdc_controller_fault = 1.0 
+      or DCACController:dcac_controller_fault = 1.0 .
+    

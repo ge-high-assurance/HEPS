@@ -1,0 +1,38 @@
+package DCACCtrReqs.
+import Definitions.
+
+/*DC-AC controller requirements */    
+Requirement DCACCtrR1:
+   DCACController shall set dcac_controller_pwm to Enable
+   when (Aircraft:aircraft_mode_of_operation = Takeoff and dcac_controller_fault = 0.0)
+   or (Aircraft:aircraft_mode_of_operation = Climb and dcac_controller_fault = 0.0).
+  
+Requirement DCACCtrR2:
+   DCACController shall set dcac_controller_pwm to Disable
+   when Aircraft:aircraft_mode_of_operation = Taxi 
+   or Aircraft:aircraft_mode_of_operation = Cruise
+   or Aircraft:aircraft_mode_of_operation = Descent
+   or Aircraft:aircraft_mode_of_operation = Final_Approach
+   or Aircraft:aircraft_mode_of_operation = After_Landing_Roll
+   or dcac_controller_fault = 1.0.   
+   
+Requirement DCACCtrR3:
+ DCACController shall set dcac_controller_fault to 1.0 
+ when dcac_controller_dc_voltage > max_dc_voltage.
+ 
+Requirement DCACCtrR4:
+ DCACController shall set dcac_controller_fault to 1.0
+ when dcac_controller_temp > max_temp_mod.
+ 
+  
+Requirement DCACCCtrR7:
+  DCACController shall set dcac_controller_fault to 1.0
+  when 
+     dcac_controller_ac_current_A > max_ac_current 
+  or dcac_controller_ac_current_B > max_ac_current
+  or dcac_controller_ac_current_C > max_ac_current.
+      
+Requirement DCACCtrR8:
+  DCACController shall set dcac_controller_fault to 1.0 
+  when Motor:motor_speed > max_speed.
+  

@@ -1,0 +1,60 @@
+package Control.
+import Definitions.
+
+Requirement Control_97:
+     Control shall set control_temp_warning_light_EL to ON 
+     when PropulsionController:propulsion_controller_temp_warning_electric = 1.0 .
+
+  
+Requirement Control_98:
+     Control shall set control_temp_warning_light_EL to OFF 
+     when PropulsionController:propulsion_controller_temp_warning_electric = 0.0 . 
+
+Requirement Control_99:
+     Control shall set control_temp_warning_light_TU to ON 
+     when PropulsionController:propulsion_controller_temp_warning_turbine = 1.0 . 
+ 
+Requirement Control_100:
+     Control shall set control_temp_warning_light_TU to OFF
+     when PropulsionController:propulsion_controller_temp_warning_turbine = 0.0 . 
+ 
+Requirement Control_101:
+     Control shall set control_chiller_warning_light to ON	
+     when PropulsionController:propulsion_controller_chiller_warning = 1.0 . 
+
+Requirement Control_102:
+     Control shall set control_chiller_fault_light to ON 
+     when PropulsionController:propulsion_controller_chiller_fault = 1.0 .
+   
+     
+Requirement Control_C1:
+     Control shall set Throttle:throttle_reference to (throttle_lever_angle)
+     when Control:control_input = Cockpit_Controls.
+
+Requirement Control_C2:
+     Control shall set Throttle:throttle_reference to (autothrust)
+     when Control:control_input = Automated_Control.
+
+Requirement Control_C3:
+     Control shall set PropulsionController:propulsion_controller_system to 1.0 
+     when Throttle:throttle_reference > 0.
+
+/*Requirement Control_C4:
+      Control shall set PropulsionController:fuel_flow_reference to 2 * (Throttle:reference) 
+      when 1 = 1.  // 2 is not actual constant
+
+Requirement Control_C5:
+      Control shall set PropulsionController:fuel_flow_reference to (max_fuel_flow)  //PropulsionControl or PropulsionController??
+      when fuel_flow_reference > max_fuel_flow. */  
+
+Requirement Control_C6:
+      Control shall set PropulsionController:propulsion_controller_system to 2.0 
+      when control_fuel_flow_reference > max_fuel_flow
+      and Aircraft:aircraft_mode_of_operation = Takeoff. 
+
+Requirement Control_C7:
+      Control shall set PropulsionController:propulsion_controller_system to 2.0 
+      when  max_fuel_flow < control_fuel_flow_reference
+      and Aircraft:aircraft_mode_of_operation = Takeoff. 
+
+               

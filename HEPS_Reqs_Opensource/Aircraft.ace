@@ -1,0 +1,10 @@
+package Aircraft. 
+import Definitions. 
+
+Requirement Aircraft_CAC1:
+   Aircraft shall set Control:control_input to Automated_Control
+   when aircraft_autopilot = ON. 
+
+Requirement Aircraft_CAC2:
+    Aircraft shall set Control:control_input to Cockpit_Controls
+    when aircraft_autopilot = OFF. 

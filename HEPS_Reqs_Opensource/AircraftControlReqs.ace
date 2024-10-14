@@ -1,0 +1,26 @@
+package AircraftControlReqs.
+import Definitions.
+
+Requirement AircraftControl_1:
+	Aircraft_Control shall set aircraft_control_reference_of_throttle to 100.5 // this value should be set by pilot
+	when aircraft_control_input_control is equal to Cockpit_Controls.
+	
+Requirement AircraftControl_2:
+	Aircraft_Control shall set aircraft_control_reference_of_throttle to 30.6 // this value should be set by auto-pilot
+	when aircraft_control_input_control is equal to Automated_Control.
+
+Requirement AircraftControl_3:
+	Aircraft_Control shall set aircraft_control_turbine_drive_train to ON
+	when aircraft_control_reference_of_throttle > 0.0.
+	
+Requirement AircraftControl_4:
+	Aircraft_Control shall set aircraft_control_fuel_flow_reference to 1000.1 // should be max_fuel_flow, which is declared as a real constant
+	when aircraft_control_reference_of_throttle > max_fuel_flow.
+
+Requirement AircraftControl_5:
+	Aircraft_Control shall set aircraft_control_electric_drive_train to ON 
+	when aircraft_control_reference_of_throttle > max_fuel_flow and aircraft_control_mode_of_operation = Takeoff. //TODO: Check if this Aircraft:aircraft_mode_of_operation
+	
+Requirement AircraftControl_6:
+	Aircraft_Control shall set aircraft_control_electric_drive_train to OFF 
+	when aircraft_control_Fault_DCAC_DCACcontroller > 1.0 or aircraft_control_Fault_DCDC_DCDCcontroller = 1.0. 

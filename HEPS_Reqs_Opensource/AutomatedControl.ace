@@ -1,0 +1,29 @@
+package AutomatedControl.
+import Definitions.
+
+Requirement AutomatedControl_CAC3:
+   Auto_control shall set PropulsionController:propulsion_controller_starter_motor_status to Declutch
+   when GasTurbine:gas_turbine_speed > 100.  // not actual value
+
+Requirement AutomatedControl_CAC4:
+   Auto_control shall set PropulsionController:propulsion_controller_ignitor_status to OFF
+   when GasTurbine:gas_turbine_speed > 100.  // not actual value
+
+Requirement AutomatedControl_CAC5:
+   Auto_control shall set Aircraft:aircraft_EGT_light_exceedance to ON 
+   when GasTurbine:gas_turbine_EGT > EGT_permissible. 
+   
+
+Requirement AutomatedControl_CAC4a:
+   Auto_control shall set PropulsionController:propulsion_controller_starter_motor_status to Declutch
+   when GasTurbine:gas_turbine_speed <= 100.  // not actual value
+
+
+Requirement AutomatedControl_CAC5a:
+   Auto_control shall set Aircraft:aircraft_EGT_light_exceedance to OFF
+   when GasTurbine:gas_turbine_EGT <= EGT_permissible. 
+ 
+ Requirement AutomatedControl_CAC4aa:
+   Auto_control shall set PropulsionController:propulsion_controller_ignitor_status to OFF
+   when GasTurbine:gas_turbine_speed <= 100.  // not actual value
+ 

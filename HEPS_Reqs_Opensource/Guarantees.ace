@@ -1,0 +1,9 @@
+package Guarantees.
+//import Requirements.
+
+/*Guarantee G1: DCACCtrR3 satisfies HLR_1.
+
+Requirement HLR_1:
+	DCACController shall ensure dc_voltage be less than or equal to max_dc_voltage.*/
+	
+	

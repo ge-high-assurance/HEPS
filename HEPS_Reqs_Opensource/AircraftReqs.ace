@@ -1,0 +1,37 @@
+package AircraftReqs.
+import Definitions.
+
+/*Requirement Max_passenger_payload_23:
+     Aircraft shall provide payload <= (average_passenger_payload * max_passengers) .
+
+ Requirement Service_Ceiling_26:
+   Aircraft shall provide service_ceiling <= 30000. 
+  
+ Requirement Flight_Crew_Count_27:
+   Aircraft shall provide flight_crew_count = 2.
+
+ Requirement Cruise_Speed_28:
+ Aircraft shall provide cruise_speed = 300 .
+ 
+ Requirement Minimum_Payload_30:
+ Aircraft shall provide payload >= (minimum_payload).
+ 
+Requirement Takeoff_Thrust_31:
+ ParallelHybridPropulsion shall provide thrust = 100 when Aircraft:mode_of_operation = Takeoff .  
+ 
+ Requirement Climb_Thrust_32:
+ ParallelHybridPropulsion shall provide thrust = 100 when Aircraft:mode_of_operation = Climb. 
+ 
+ Requirement Cruise_Thrust_33:
+ ParallelHybridPropulsion shall provide thrust = 100 when Aircraft:mode_of_operation = Cruise.   
+ 
+ Requirement Emergency_Thrust_34:
+ ParallelHybridPropulsion shall provide thrust = 100 when Aircraft:mode_of_operation = Emergency.  
+ 
+ Requirement Empty_Weight_35:
+   Structure shall provide empty_weight <= (max_empty_weight).
+   
+ Requirement Usable_Storage_36:
+   Battery shall provide usable_storage_power = 100. */
+ 
+ 

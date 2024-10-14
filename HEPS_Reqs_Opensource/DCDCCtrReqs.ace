@@ -1,0 +1,40 @@
+package DCDCCtrReqs.
+import Definitions.
+
+/*DC-DC controller requirements */    
+Requirement DCDCCtrR1:
+  DCDCController shall set dcdc_controller_pwm to Enable
+  when 
+  (Aircraft:aircraft_mode_of_operation = Takeoff and dcdc_controller_fault = 0.0)
+  or 
+  (Aircraft:aircraft_mode_of_operation = Climb and dcdc_controller_fault = 0.0).
+
+Requirement DCDCCtrR2:
+  DCDCController shall set dcdc_controller_pwm to Disable
+  when Aircraft:aircraft_mode_of_operation = Taxi  
+  or Aircraft:aircraft_mode_of_operation = Cruise
+  or Aircraft:aircraft_mode_of_operation = Descent
+  or Aircraft:aircraft_mode_of_operation = Final_Approach
+  or Aircraft:aircraft_mode_of_operation = After_Landing_Roll
+  or dcdc_controller_fault = 0.0.
+ 
+Requirement  DCDCCtrR3:
+  DCDCController shall set dcdc_controller_pwm to Disable
+  when Battery:battery_voltage > max_bat_voltage
+  or Battery:battery_voltage < min_bat_voltage.
+  
+Requirement  DCDCCtrR4:
+  DCDCController shall set dcdc_controller_pwm to Disable
+  when Battery:battery_current > max_bat_current
+  or Battery:battery_current < min_bat_current.
+ 
+Requirement DCDCCtrR5:
+  DCDCController shall set dcdc_controller_fault to 1.0
+  when Battery:battery_temp > max_temp_bat.
+
+Requirement DCDCCtrR6:
+  DCDCController shall set dcdc_controller_fault to 1.0
+  when dcdc_controller_temp > max_temp_mod.
+   
+ 
+   

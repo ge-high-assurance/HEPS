@@ -1,0 +1,74 @@
+package Requirements.
+import Definitions.
+/*  
+      
+Requirement DCDCCtrR1:
+  DCDCController shall set pwm to Enable
+  when 
+  (Aircraft:mode_of_operation = Takeoff and fault = 0.0)
+  or 
+  (Aircraft:mode_of_operation = Climb and fault = 0.0).
+
+Requirement DCDCCtrR2:
+  DCDCController shall set pwm to Disable
+  when Aircraft:mode_of_operation = Taxi  
+  or Aircraft:mode_of_operation = Cruise
+  or Aircraft:mode_of_operation = Descent
+  or Aircraft:mode_of_operation = Final_Approach
+  or Aircraft:mode_of_operation = After_Landing_Roll
+  or fault = 0.0.
+ 
+Requirement  DCDCCtrR3:
+  DCDCController shall set pwm to Disable
+  when Battery:bat_voltage > max_bat_voltage
+  or Battery:bat_voltage < min_bat_voltage.
+  
+Requirement  DCDCCtrR4:
+  DCDCController shall set pwm to Disable
+  when Battery:bat_current > max_bat_current
+  or Battery:bat_current < min_bat_current.
+ 
+Requirement DCDCCtrR5:
+  DCDCController shall set fault to 1.0
+  when Battery:temp_bat > max_temp_bat.
+
+Requirement DCDCCtrR6:
+  DCDCController shall set fault to 1.0
+  when temp > max_temp_mod.
+  
+ 
+Requirement DCACCtrR1:
+   DCACController shall set pwm to Enable
+   when (Aircraft:mode_of_operation = Takeoff and fault = 0.0)
+   or (Aircraft:mode_of_operation = Climb and fault = 0.0).
+  
+Requirement DCACCtrR2:
+   DCACController shall set pwm to Disable
+   when Aircraft:mode_of_operation = Taxi 
+   or Aircraft:mode_of_operation = Cruise
+   or Aircraft:mode_of_operation = Descent
+   or Aircraft:mode_of_operation = Final_Approach
+   or Aircraft:mode_of_operation = After_Landing_Roll
+   or fault = 1.0.   
+   
+Requirement DCACCtrR3:
+ DCACController shall set fault to 1.0 
+ when dc_voltage > max_dc_voltage.
+ 
+Requirement DCACCtrR4:
+ DCACController shall set fault to 1.0
+ when temp > max_temp_mod.
+ 
+ 
+  
+Requirement DCACCCtrR7:
+  DCACController shall set fault to 1.0
+  when 
+     ac_current_A > max_ac_current 
+  or ac_current_B > max_ac_current
+  or ac_current_C > max_ac_current.
+      
+Requirement DCACCtrR8:
+  DCACController shall set fault to 1.0 
+  when Motor:speed > max_speed.
+  */    

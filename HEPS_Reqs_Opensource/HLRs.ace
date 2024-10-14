@@ -1,0 +1,88 @@
+package HLRs.
+import Definitions.
+
+BatteryDomain, PowerElectronicsDomain, ThermalDomain are domain types. 
+Guarantee G1:  DCDC_Junction_Temperature_Range. 
+Guarantee G2:  DCAC_Junction_Temperature_Range.
+
+BatteryDomain domain batteryDomainRequirements {
+  Requirement BatterySystem_36 : "Usable storage"   
+     Battery shall provide battery_usable_storage_power = 100 kW.  
+}
+
+PowerElectronicsDomain domain powerElectronicsEquations{
+	
+	Equation DCDC_Loss: 
+	   DCDCConverter ::
+	     dcdc_converter_loss = 
+	       (1 - dcdc_converter_efficiency) 
+	         * Battery:battery_usable_storage_power. 
+	 
+	Equation DCAC_Loss:
+	   DCACConverter :: 
+	     dcac_converter_loss = 
+	      ( 1 - dcac_converter_efficiency) 
+	         * DCDCConverter:dcdc_converter_loss .    
+ 
+} 
+
+PowerElectronicsDomain domain powerElectronicsRequirements{
+	Requirement DCDC_Efficiency: 
+	   DCDCConverter shall provide dcdc_converter_efficiency > 0.85  .
+	   
+	Requirement DCDC_Efficiency_lt_1: 
+	   DCDCConverter shall provide dcdc_converter_efficiency < 0.98 .
+
+	Requirement DCAC_Efficiency: 
+	   DCACConverter shall provide dcac_converter_efficiency > 0.95.    
+	   
+	Requirement DCAC_Efficiency_lt_1: 
+	   DCACConverter shall provide dcac_converter_efficiency < 0.98.    
+	   	
+}
+ThermalDomain domain thermalDomainEquations{
+	Equation DCDC_Junction_Temperature: 
+	   DCDCConverter :: dcdc_converter_junction_temperature = 
+	     (   Chiller:chiller_outlet_temperature + 
+	     	 dcdc_converter_loss*dcdc_converter_thermal_resistance_junction_to_fluid
+	     ) celsius.	
+	Equation DCAC_Junction_Temperature:
+	   DCACConverter  :: dcac_converter_junction_temperature = 
+	        (  Chiller:chiller_outlet_temperature + 
+	          dcac_converter_loss*dcac_converter_thermal_resistance_junction_to_fluid
+	        ) celsius.
+    }   
+ThermalDomain domain thermalDomainRequirements{
+	Requirement DCDC_Junction_Temperature_Range:
+    	 DCDCConverter shall provide 
+    	      dcdc_converter_junction_temperature <= 175  celsius.  
+    Requirement DCAC_Junction_Temperature_Range:
+    	 DCACConverter shall provide 
+    	     dcac_converter_junction_temperature <= 175 celsius. 	
+	
+	Requirement Chiller_105:
+	    Chiller shall provide chiller_flow_rate >= (flow_rate_min) GPM.
+	
+	Requirement Chiller_106: 
+	    Chiller shall provide chiller_flow_rate <= (flow_rate_max) GPM.
+	
+	Requirement Chiller_107:	
+	    Chiller shall provide chiller_outlet_temperature <= (Outlet_T_max) celsius.  
+	
+	Requirement Chiller_108:
+	    Chiller shall provide chiller_inlet_temperature <= (Inlet_T_max) celsius.    
+	
+	Requirement DCDC_Thermal_Resistance:
+	    DCDCConverter shall provide 
+	       dcdc_converter_thermal_resistance_junction_to_fluid = 1 C_per_kW.         
+	
+	Requirement DCAC_Thermal_Resistance:
+	    DCACConverter shall provide 
+	      dcac_converter_thermal_resistance_junction_to_fluid = 1 C_per_kW.  	    	
+}
+
+ 
+  
+
+
+

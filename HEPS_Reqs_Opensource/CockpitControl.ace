@@ -1,0 +1,33 @@
+package CockpitControl.
+import Definitions.
+
+Requirement CockpitControl_CCC3:
+    Pilot shall set Aerodynamics:aerodynamics_flaps to Enable 
+    when Aircraft:aircraft_mode_of_operation = Takeoff 
+    or Aircraft:aircraft_mode_of_operation = Final_Approach.
+    
+Requirement CockpitControl_CCC5:
+    Pilot shall set Structures:structures_landing_gear to Deploy 
+    when Aircraft:aircraft_mode_of_operation = Final_Approach.
+
+Requirement CockpitControl_CCC14:
+    Pilot shall set PropulsionController:propulsion_controller_ignitor_status to ON 
+    when GasTurbine:gas_turbine_EGT > Start_EGT_limit.
+    
+Requirement CockpitControl_CCC12:
+    Pilot shall set PropulsionController:propulsion_controller_ignitor_status to ON
+    when GasTurbine:gas_turbine_N2_rotation > 200 . // some dummy value
+
+Requirement CockpitControl_CCC13:
+    Pilot shall set PropulsionController:propulsion_controller_fuel_switch_status to OFF
+    when GasTurbine:gas_turbine_EGT > Start_EGT_limit.
+
+Requirement CockpitControl_CCC11:
+    Pilot shall set PropulsionController:propulsion_controller_fuel_switch_status to ON 
+    when GasTurbine:gas_turbine_EGT > Start_EGT_limit.
+    
+Requirement CockpitControl_CCC10:
+    Pilot shall set PropulsionController:propulsion_controller_start_valve_status to OPEN
+    when Aircraft:aircraft_mode_of_operation = GroundIdle.
+    
+    
