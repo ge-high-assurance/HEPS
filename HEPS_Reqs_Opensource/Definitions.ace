@@ -18,7 +18,8 @@ Units{
 	C : "C-rate"
 	kW_per_kg : "kilo-watt per kilogram"
 	GPM : "Gallons per minute"
-	C_per_kW : "Celsius per kilo-Watt"
+	C_per_kW : "Celsius per kilo-Watt",
+	ohm : "ohm"
 
 }
 Switch is an enum type with values [ON, OFF].

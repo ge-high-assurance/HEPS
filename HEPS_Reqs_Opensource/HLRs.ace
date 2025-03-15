@@ -2,11 +2,11 @@ package HLRs.
 import Definitions.
 
 BatteryDomain, PowerElectronicsDomain, ThermalDomain are domain types. 
-Guarantee G1:  DCDC_Junction_Temperature_Range. 
-Guarantee G2:  DCAC_Junction_Temperature_Range.
+Guarantee G1:  DCDC_Junction_Temp_Range. 
+Guarantee G2:  DCAC_Junction_Temp_Range.
 
 BatteryDomain domain batteryDomainRequirements {
-  Requirement BatterySystem_36 : "Usable storage"   
+  Requirement BatterySystem : "Usable storage"   
      Battery shall provide battery_usable_storage_power = 100 kW.  
 }
 
@@ -29,6 +29,9 @@ PowerElectronicsDomain domain powerElectronicsEquations{
 PowerElectronicsDomain domain powerElectronicsRequirements{
 	Requirement DCDC_Efficiency: 
 	   DCDCConverter shall provide dcdc_converter_efficiency > 0.85  .
+	   
+	Requirement DCDCCR4:
+	   DCDCConverter shall provide dcdc_converter_efficiency < 0.85.
 	   
 	Requirement DCDC_Efficiency_lt_1: 
 	   DCDCConverter shall provide dcdc_converter_efficiency < 0.98 .
@@ -53,10 +56,10 @@ ThermalDomain domain thermalDomainEquations{
 	        ) celsius.
     }   
 ThermalDomain domain thermalDomainRequirements{
-	Requirement DCDC_Junction_Temperature_Range:
+	Requirement DCDC_Junction_Temp_Range:
     	 DCDCConverter shall provide 
     	      dcdc_converter_junction_temperature <= 175  celsius.  
-    Requirement DCAC_Junction_Temperature_Range:
+    Requirement DCAC_Junction_Temp_Range:
     	 DCACConverter shall provide 
     	     dcac_converter_junction_temperature <= 175 celsius. 	
 	
